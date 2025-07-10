@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warm Grooves</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Crimson+Text&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Crimson Text', serif;
+      background-color: #512912;
+      color: #FFFFFF;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background-color: #893709;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #FFFFFF;
+    }
+    .nav-icons {
+      display: flex;
+      gap: 1rem;
+      cursor: pointer;
+    }
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(#512912, #893709);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: #DBB16D;
+    }
+    .cta-button {
+      background-color: #D07D1C;
+      color: #FFFFFF;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .section {
+      padding: 2rem;
+    }
+    .products, .reviews, .team, .contact {
+      margin-top: 2rem;
+    }
+    .product-card {
+      background-color: #893709;
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 12px;
+      transition: transform 0.3s;
+    }
+    .product-card:hover {
+      transform: scale(1.03);
+    }
+    .product-card button {
+      background-color: #D07D1C;
+      color: #FFFFFF;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .team-description, .reviews p {
+      margin: 0.5rem 0;
+    }
+    footer {
+      background-color: #512912;
+      padding: 2rem;
+      font-size: 0.9rem;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 300px;
+      height: 100%;
+      background-color: #893709;
+      color: white;
+      padding: 1rem;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+      overflow-y: auto;
+      z-index: 999;
+    }
+    .modal input, .modal button {
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+    }
+    .modal-close {
+      text-align: right;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    .newsletter {
+      background-color: #893709;
+      padding: 2rem;
+      text-align: center;
+      margin: 2rem;
+      border-radius: 12px;
+    }
+    .newsletter input[type="email"] {
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: none;
+      width: 60%;
+      max-width: 300px;
+      margin-right: 0.5rem;
+    }
+    .newsletter button {
+      background-color: #D07D1C;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #catalogModal {
+      display: none;
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      width: 90%;
+      max-width: 800px;
+      background-color: #512912;
+      color: white;
+      padding: 2rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      z-index: 1000;
+      overflow-y: auto;
+      max-height: 80%;
+    }
+    #catalogModal h2 {
+      color: #DBB16D;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Warm Grooves</div>
+    <div class="nav-icons">
+      <span onclick="toggleModal('searchModal')">Cerca</span>
+      <span onclick="toggleModal('cartModal')">Carrello</span>
+      <span onclick="toggleModal('accountModal')">Account</span>
+    </div>
+  </header>
+
+  <div class="hero">
+    <h1>Benvenuto su Warm Grooves</h1>
+    <p>Il tuo negozio di vinili e CD online. Scopri una vasta selezione di musica, leggi recensioni, segui il nostro blog musicale e ascolta anteprime audio. Inizia ora il tuo viaggio musicale con noi.</p>
+    <button class="cta-button" onclick="toggleModal('catalogModal')">Scopri di più</button>
+  </div>
+
+  <div class="section products">
+    <h2>Best Seller</h2>
+    <div class="product-card">
+      <h3>CD Pop Contemporaneo - €15,00</h3>
+      <button onclick="addToCart('CD Pop Contemporaneo - €15,00')">Aggiungi al carrello</button>
+    </div>
+    <div class="product-card">
+      <h3>CD Blues Classico - €18,00</h3>
+      <button onclick="addToCart('CD Blues Classico - €18,00')">Aggiungi al carrello</button>
+    </div>
+    <div class="product-card">
+      <h3>CD Colonne Sonore - €20,00</h3>
+      <button onclick="addToCart('CD Colonne Sonore - €20,00')">Aggiungi al carrello</button>
+    </div>
+    <div class="product-card">
+      <h3>Vinile Jazz Classico - €30,00</h3>
+      <button onclick="addToCart('Vinile Jazz Classico - €30,00')">Aggiungi al carrello</button>
+    </div>
+  </div>
+
+  <div class="section team" id="team">
+    <h2>Chi siamo</h2>
+    <p>Warm Groove è il tuo compagno ideale per l'acquisto di vinili e CD. Ci impegniamo a offrire una selezione musicale accuratamente scelta, recensioni dettagliate e contenuti musicali coinvolgenti. La nostra piattaforma ti permette di esplorare la musica in modo unico e coinvolgente.</p>
+    <p>Siamo appassionati di musica e vogliamo condividere questa passione con te. Ti offriamo un'esperienza di shopping musicale senza precedenti. Unisciti a noi nel mondo della musica.</p>
+    <button class="cta-button" onclick="location.href='#presentazione-team'">Scopri di più</button>
+
+    <div id="presentazione-team" style="margin-top:2rem">
+      <p><strong>Claudio:</strong> esperto di vinili</p>
+      <p><strong>Asia:</strong> curatrice CD</p>
+      <p><strong>Claudia:</strong> supporto clienti</p>
+      <p><strong>Lisa:</strong> critico musicale</p>
+    </div>
+  </div>
+
+  <div class="section reviews">
+    <h2>Recensioni</h2>
+    <p><strong>Alessia Gentile:</strong> Un'esperienza sonora unica, vinili perfetti!</p>
+    <p><strong>Marco Rossi:</strong> CD rari e introvabili, servizio impeccabile.</p>
+    <p><strong>Lisa Angelini:</strong> Recensioni accurate, scoperte musicali garantite.</p>
+  </div>
+
+  <div class="section newsletter">
+    <h2>Iscriviti alla nostra newsletter</h2>
+    <p>Ricevi aggiornamenti, offerte esclusive e novità musicali direttamente nella tua casella email.</p>
+    <input type="email" placeholder="Inserisci la tua email" required>
+    <button>Iscriviti</button>
+  </div>
+
+  <div class="section contact">
+    <h2>Contact us</h2>
+    <form>
+      <label>First name*</label><br />
+      <input type="text" required /><br />
+      <label>Last name</label><br />
+      <input type="text" /><br />
+      <label>Email*</label><br />
+      <input type="email" required /><br />
+      <label>Write a message</label><br />
+      <textarea></textarea><br />
+      <button type="submit" class="cta-button">Submit</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>(+39) 0612345678</p>
+    <p>info@warmgroove.com</p>
+    <p>Via Garibaldi 100, 00042, Roma (RM), Italia</p>
+    <p>Facebook | Instagram | X | TikTok</p>
+    <p>Informativa sulla privacy | Dichiarazione di accessibilità | Politica di spedizione | Termini e condizioni | Politica di rimborso</p>
+    <p>© 2035 by Warm Grooves.</p>
+  </footer>
+
+  <div id="searchModal" class="modal">
+    <div class="modal-close" onclick="toggleModal('searchModal')">✖</div>
+    <h3>Cerca un prodotto</h3>
+    <input type="text" placeholder="Scrivi qui..." />
+  </div>
+
+  <div id="cartModal" class="modal">
+    <div class="modal-close" onclick="toggleModal('cartModal')">✖</div>
+    <h3>Il tuo carrello</h3>
+    <ul id="cartItems"></ul>
+  </div>
+
+  <div id="accountModal" class="modal">
+    <div class="modal-close" onclick="toggleModal('accountModal')">✖</div>
+    <h3>Accedi o Registrati</h3>
+    <button>Accedi con Email</button>
+    <button>Accedi con Facebook</button>
+    <button>Accedi con Google</button>
+  </div>
+
+  <div id="catalogModal">
+    <div class="modal-close" onclick="toggleModal('catalogModal')">✖</div>
+    <h2>Catalogo di Vinili e CD</h2>
+    <p>Qui troverai tutta la nostra collezione musicale. Sfoglia per genere, formato, label e molto altro!</p>
+    <ul>
+      <li>Vinile Musica Elettronica - €28,00</li>
+      <li>Vinile Rock Anni '80 - €25,00</li>
+      <li>CD Colonne Sonore - €20,00</li>
+      <li>CD Blues Classico - €18,00</li>
+    </ul>
+  </div>
+
+  <script>
+    function toggleModal(id) {
+      const modal = document.getElementById(id);
+      modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function addToCart(itemName) {
+      const cartItems = document.getElementById('cartItems');
+      const li = document.createElement('li');
+      li.textContent = itemName;
+      cartItems.appendChild(li);
+    }
+  </script>
+</body>
+</html>
